@@ -1,0 +1,6 @@
+//Structure of the user collection
+{
+  "_id": "String",
+  "firstName": "String",
+  "lastName" : "String"
+}

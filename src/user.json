@@ -2,5 +2,9 @@
 {
   "_id": "String",
   "firstName": "String",
-  "lastName" : "String"
+  "lastName": "String",
+  "userName": "String",
+  "passWord": "String",
+  "accountType": 1,
+  "booksRentedOut": []
 }

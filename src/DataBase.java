@@ -11,6 +11,7 @@ import java.util.Locale;
 
 import static java.util.Arrays.asList;
 import static java.util.Arrays.deepHashCode;
+import static com.mongodb.client.model.Filters.*;
 
 /**
  * Created by raulmartinez on 3/3/16.
@@ -51,5 +52,28 @@ public class DataBase {
             }
         });
         return Books;
+    }
+    public static User Login(String username, String password) {
+        Initialize();
+        final User[] user = new User[1];
+        FindIterable<Document> iterable = db.getCollection("users").find(new Document("userName", username));
+        iterable.forEach(new Block<Document>() {
+            @Override
+            public void apply(final Document document) {
+                User tmpuser = new User();
+                 if (document.getString("passWord").equals(password)){
+                     tmpuser =  new User(
+                             true,
+                             document.getString("firstName"),
+                             document.getString("lastName"),
+                             document.getString("accountType"),
+                             ((ArrayList<String>) document.get("booksRentedOut"))
+                     );
+                 }
+                user[0] = tmpuser;
+            }
+        });
+
+        return user[0];
     }
 }

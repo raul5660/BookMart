@@ -3,6 +3,6 @@
  */
 public class BookMart {
     public static void main(String[] args){
-        DataBase test = new DataBase();
+        MainGUI GUI = new MainGUI();
     }
 }

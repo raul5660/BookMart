@@ -1,61 +1,61 @@
 {
   "_id": "String",
   "name": "String",
-  "author": "",
+  "author": "String",
   "genre": "String",
   "quantity": 1
 }
 
 {"name": "Godel Escher Bach: An Eternal Golden Braid / Edition 20", "author": "Douglas R. Hofstadter", "genre": "Art", "quantity": 5}
 {"name": "Living with Art / Edition 10", "author": "Mark Getlein", "genre": "Art", "quantity": 5}
-{"name": "String", "author": "", "genre": "Art", "quantity": 5}
-{"name": "String", "author": "", "genre": "Art", "quantity": 5}
-{"name": "String", "author": "", "genre": "Art", "quantity": 5}
+{"name": "Gateways to Art: Understanding the Visual Arts", "author": ["Debra J. DeWitte", "Ralph M. Larmann", "M. Kathryn Shields"], "genre": "Art", "quantity": 5}
+{"name": "Art History Volume 1 / Edition 5", "author": ["Marilyn Stokstad", "Michael Cothren"], "genre": "Art", "quantity": 5}
+{"name": "Art History Volume 2 / Edition 5", "author": ["Marilyn Stokstad", "Michael Cothren"], "genre": "Art", "quantity": 5}
 
-{"name": "String", "author": "", "genre": "String", "quantity": 5}
-{"name": "String", "author": "", "genre": "String", "quantity": 5}
-{"name": "String", "author": "", "genre": "String", "quantity": 5}
-{"name": "String", "author": "", "genre": "String", "quantity": 5}
-{"name": "String", "author": "", "genre": "String", "quantity": 5}
+{"name": "A Guide to the Project Management Body of Knowledge (Pmbok Guide) - 5th Edition", "author": "Project Management Institute", "genre": "Business & Economics", "quantity": 5}
+{"name": "The Energy Bus: 10 Rules to Fuel Your Life, Work, and Team with Positive Energy / Edition 1", "author": "Jon Gordon", "genre": "Business & Economics", "quantity": 5}
+{"name": "A Pocket Guide to Public Speaking / Edition 4", "author": ["Dan O'Hair", "Hannah Rubenstein", "Rob Stewart"], "genre": "Business & Economics", "quantity": 5}
+{"name": "Eat That Frog!: 21 Great Ways to Stop Procrastinating and Get More Done In Less Time / Edition 2", "author": "Brian Tracy", "genre": "Business & Economics", "quantity": 5}
+{"name": "Communicating at Work: Principles and Practices for Business and the Professions / Edition 11", "author": ["Ronald Adler", "Jeanne Marquardt Elmhorst", "Kristen Lucas"], "genre": "Business & Economics", "quantity": 5}
 
-{"name": "String", "author": "", "genre": "String", "quantity": 5}
-{"name": "String", "author": "", "genre": "String", "quantity": 5}
-{"name": "String", "author": "", "genre": "String", "quantity": 5}
-{"name": "String", "author": "", "genre": "String", "quantity": 5}
-{"name": "String", "author": "", "genre": "String", "quantity": 5}
+{"name": "Introduction to Computer Security", "author": ["Michael Goodrich", "Roberto Tamassia"], "genre": "Computer Science", "quantity": 5}
+{"name": "C++ How to Program: Late Objects Version / Edition 7", "author": ["Paul Deitel", "Harvey Deitel"], "genre": "Computer Science", "quantity": 5}
+{"name": "Computer Networking: A Top-Down Approach / Edition 6", "author": ["James F. Kurose", "Keith W. Ross"], "genre": "Computer Science", "quantity": 5}
+{"name": "Learn Python the Hard Way: A Very Simple Introduction to the Terrifyingly Beautiful World of Computers and Code / Edition 3", "author": "Zed A. Shaw", "genre": "Computer Science", "quantity": 5}
+{"name": "CISSP All-in-One Exam Guide, 6th Edition", "author": "Shon Harris", "genre": "Computer Science", "quantity": 5}
 
-{"name": "String", "author": "", "genre": "String", "quantity": 5}
-{"name": "String", "author": "", "genre": "String", "quantity": 5}
-{"name": "String", "author": "", "genre": "String", "quantity": 5}
-{"name": "String", "author": "", "genre": "String", "quantity": 5}
-{"name": "String", "author": "", "genre": "String", "quantity": 5}
+{"name": "Universal Principles of Design, Revised and Updated: 125 Ways to Enhance Usability, Influence Perception, Increase Appeal, Make Better Design Decisions, and Teach through Design / Edition 2", "author": ["William Lidwell", "Kritina Holden", "Jill Butler"], "genre": "Design", "quantity": 5}
+{"name": "History of Interior Design", "author": "Jeannie Ireland", "genre": "Design", "quantity": 5}
+{"name": "Change by Design: How Design Thinking Transforms Organizations and Inspires Innovation", "author": "Tim Brown", "genre": "Design", "quantity": 5}
+{"name": "History of Modern Design / Edition 2", "author": ["David Raizman", "Laurence Pu King"], "genre": "Design", "quantity": 5}
+{"name": "History of Furniture: A Global View", "author": "Mark Hinchman", "genre": "Design", "quantity": 5}
 
-{"name": "String", "author": "", "genre": "String", "quantity": 5}
-{"name": "String", "author": "", "genre": "String", "quantity": 5}
-{"name": "String", "author": "", "genre": "String", "quantity": 5}
-{"name": "String", "author": "", "genre": "String", "quantity": 5}
-{"name": "String", "author": "", "genre": "String", "quantity": 5}
+{"name": "The Continuum of Literacy Learning, Grades PreK-8: A Guide to Teaching, Second Edition", "author": ["Irene Fountas", "Gay Su Pinnell"], "genre": "Education", "quantity": 5}
+{"name": "Rereading America: Cultural Contexts for Critical Thinking and Writing / Edition 9", "author": ["Gary Colombo", "Robert Cullen", "Bonnie Lisle"], "genre": "Education", "quantity": 5}
+{"name": "Current Issues and Enduring Questions: A Guide to Critical Thinking and Argument, with Readings / Edition 10", "author": ["Sylvan Barnet", "Hugo Bedau"], "genre": "Education", "quantity": 5}
+{"name": "String", "author": "String", "genre": "Education", "quantity": 5}
+{"name": "String", "author": "String", "genre": "Education", "quantity": 5}
 
-{"name": "String", "author": "", "genre": "String", "quantity": 5}
-{"name": "String", "author": "", "genre": "String", "quantity": 5}
-{"name": "String", "author": "", "genre": "String", "quantity": 5}
-{"name": "String", "author": "", "genre": "String", "quantity": 5}
-{"name": "String", "author": "", "genre": "String", "quantity": 5}
+{"name": "String", "author": "String", "genre": "Law", "quantity": 5}
+{"name": "String", "author": "String", "genre": "Law", "quantity": 5}
+{"name": "String", "author": "String", "genre": "Law", "quantity": 5}
+{"name": "String", "author": "String", "genre": "Law", "quantity": 5}
+{"name": "String", "author": "String", "genre": "Law", "quantity": 5}
 
-{"name": "String", "author": "", "genre": "String", "quantity": 5}
-{"name": "String", "author": "", "genre": "String", "quantity": 5}
-{"name": "String", "author": "", "genre": "String", "quantity": 5}
-{"name": "String", "author": "", "genre": "String", "quantity": 5}
-{"name": "String", "author": "", "genre": "String", "quantity": 5}
+{"name": "String", "author": "String", "genre": "Mathematics", "quantity": 5}
+{"name": "String", "author": "String", "genre": "Mathematics", "quantity": 5}
+{"name": "String", "author": "String", "genre": "Mathematics", "quantity": 5}
+{"name": "String", "author": "String", "genre": "Mathematics", "quantity": 5}
+{"name": "String", "author": "String", "genre": "Mathematics", "quantity": 5}
 
-{"name": "String", "author": "", "genre": "String", "quantity": 5}
-{"name": "String", "author": "", "genre": "String", "quantity": 5}
-{"name": "String", "author": "", "genre": "String", "quantity": 5}
-{"name": "String", "author": "", "genre": "String", "quantity": 5}
-{"name": "String", "author": "", "genre": "String", "quantity": 5}
+{"name": "String", "author": "String", "genre": "Music", "quantity": 5}
+{"name": "String", "author": "String", "genre": "Music", "quantity": 5}
+{"name": "String", "author": "String", "genre": "Music", "quantity": 5}
+{"name": "String", "author": "String", "genre": "Music", "quantity": 5}
+{"name": "String", "author": "String", "genre": "Music", "quantity": 5}
 
-{"name": "String", "author": "", "genre": "String", "quantity": 5}
-{"name": "String", "author": "", "genre": "String", "quantity": 5}
-{"name": "String", "author": "", "genre": "String", "quantity": 5}
-{"name": "String", "author": "", "genre": "String", "quantity": 5}
-{"name": "String", "author": "", "genre": "String", "quantity": 5}
+{"name": "String", "author": "String", "genre": "Philosophy and Psychology", "quantity": 5}
+{"name": "String", "author": "String", "genre": "Philosophy and Psychology", "quantity": 5}
+{"name": "String", "author": "String", "genre": "Philosophy and Psychology", "quantity": 5}
+{"name": "String", "author": "String", "genre": "Philosophy and Psychology", "quantity": 5}
+{"name": "String", "author": "String", "genre": "Philosophy and Psychology", "quantity": 5}

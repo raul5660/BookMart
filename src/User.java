@@ -5,16 +5,25 @@ import java.util.ArrayList;
  */
 public class User {
     private boolean isAuthenticated = false;
-    private String firstName, lastName, accountType;
+    private String firstName, lastName, accountType, userName;
     ArrayList<String> booksCheckedOut;
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
 
     public User() { }
 
-    public User(boolean isAuthenticated, String firstName, String lastName, String accountType, ArrayList<String> booksCheckedOut) {
+    public User(boolean isAuthenticated, String firstName, String lastName, String accountType, String userName, ArrayList<String> booksCheckedOut) {
         this.isAuthenticated = isAuthenticated;
         this.firstName = firstName;
         this.lastName = lastName;
         this.accountType = accountType;
+        this.userName = userName;
         this.booksCheckedOut = booksCheckedOut;
     }
 

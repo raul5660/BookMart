@@ -6,8 +6,6 @@ import java.util.ArrayList;
 public class BookMart {
     public static void main(String[] args){
         ArrayList<Books> Books = DataBase.getBooks();
-        User loggedIn = DataBase.Login("admin","Defense08");
-
-        System.out.println(loggedIn.isAuthenticated());
+        System.out.println(Books.size());
     }
 }

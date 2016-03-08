@@ -66,4 +66,19 @@ public class User {
     public void setBooksCheckedOut(ArrayList<String> booksCheckedOut) {
         this.booksCheckedOut = booksCheckedOut;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        User tmpUser = (User) obj;
+        if (    !this.firstName.equals(tmpUser.getFirstName()) ||
+                !this.lastName.equals(tmpUser.getLastName()) ||
+                !this.userName.equals(tmpUser.getUserName()) ||
+                !this.accountType.equals(tmpUser.getAccountType())){
+            return false;
+        }
+        return true;
+    }
 }

@@ -5,7 +5,11 @@ import java.util.ArrayList;
  */
 public class BookMart {
     public static void main(String[] args){
-        ArrayList<Books> Books = DataBase.getBooks();
-        System.out.println(Books.size());
+        User user = new User(false, "raul","martinez", "user", "raul5660",new ArrayList<String>());
+        boolean isCreated = DatabaseController.createUser(user, "Defense08");
+        user.setAuthenticated(isCreated);
+        if (user.isAuthenticated()){
+            System.out.println("successful");
+        }
     }
 }

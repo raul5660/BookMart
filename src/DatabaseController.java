@@ -4,7 +4,6 @@ import org.bson.Document;
 import com.mongodb.Block;
 import com.mongodb.client.FindIterable;
 
-import java.awt.print.Book;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -18,9 +17,10 @@ import static com.mongodb.client.model.Filters.*;
 /**
  * Created by raulmartinez on 3/3/16.
  */
-public class DataBase {
+public class DatabaseController {
     private static MongoDatabase db;
     public static String[] genres = {"Art", "Business & Economics", "Computer Science", "Design", "Education", "Law", "Mathematics", "Music", "Philosophy and Psychology"};
+
     private static void Initialize() {
         MongoClient mongoClient = new MongoClient("192.168.244.137", 27017);
         db = mongoClient.getDatabase("BookMart");
@@ -101,11 +101,10 @@ public class DataBase {
         tmpUser.append("passWord", password);
         tmpUser.append("accountType", user.getAccountType());
         tmpUser.append("booksRentedOut", asList());
-        db.getCollection("user").insertOne(tmpUser);
+        db.getCollection("users").insertOne(tmpUser);
 
         User tmpUser2 = Login(user.getUserName(), password);
-
-        if (tmpUser.equals(tmpUser2)){
+        if (user.equals(tmpUser2)){
             return true;
         }
         return false;

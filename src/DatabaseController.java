@@ -1,13 +1,14 @@
-import com.mongodb.MongoClient;
+import com.mongodb.*;
 import com.mongodb.client.MongoDatabase;
 import org.bson.Document;
-import com.mongodb.Block;
 import com.mongodb.client.FindIterable;
+import org.bson.types.ObjectId;
 
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Locale;
 
 import static java.util.Arrays.asList;
@@ -22,12 +23,13 @@ public class DatabaseController {
     public static String[] genres = {"Art", "Business & Economics", "Computer Science", "Design", "Education", "Law", "Mathematics", "Music", "Philosophy and Psychology"};
 
     private static void Initialize() {
-        MongoClient mongoClient = new MongoClient("192.168.244.137", 27017);
+        MongoClient mongoClient = new MongoClient("127.0.0.1", 27017);
         db = mongoClient.getDatabase("BookMart");
     }
+
     public static ArrayList<Books> getBooksByGenre(String genre) {
         Initialize();
-        ArrayList<Books> Books = new ArrayList<Books>();
+        final ArrayList<Books> Books = new ArrayList<Books>();
         FindIterable<Document> iterable = db.getCollection("books").find(new Document("genre", genre));
         iterable.forEach(new Block<Document>() {
             @Override
@@ -50,13 +52,15 @@ public class DatabaseController {
                         document.getInteger("quantity"),
                         document.getString("genre"),
                         authors,
-                        document.getString("name")
+                        document.getString("name"),
+                        document.get("_id").toString()
                 ));
             }
         });
         return Books;
     }
-    public static User Login(String username, String password) {
+
+    public static User Login(String username, final String password) {
         Initialize();
         final User[] user = new User[1];
         FindIterable<Document> iterable = db.getCollection("users").find(new Document("userName", username));
@@ -71,6 +75,7 @@ public class DatabaseController {
                              document.getString("lastName"),
                              document.getString("accountType"),
                              document.getString("userName"),
+                             document.get("_id").toString(),
                              ((ArrayList<String>) document.get("booksRentedOut"))
                      );
                  }
@@ -109,4 +114,62 @@ public class DatabaseController {
         }
         return false;
     }
+
+    //****************************************************************************************
+    // -Takes in a User and Book
+    // -updates database table that the user has checkedout that book
+    // -decreases quantity of book left in database
+    //****************************************************************************************
+    public static boolean checkoutBook(User user, Books book) {
+        final long DAY_IN_MS = 1000 * 60 * 60 * 24; //number of miliseconds in a day
+        Date returnDate = new Date();               //Start at current date
+        int newQuantity;                            //the amount of book left after operation
+
+        Initialize();
+
+        //Check that user exists
+        FindIterable<Document> iterable = db.getCollection("users").find(new Document("_id", new ObjectId(user.getID())));
+        if (iterable.first() == null) {
+            System.out.println("User says fuck you");
+            return false;
+        }
+        /* Start of error checking for duplicate rentals
+        else
+        {
+            ArrayList test = (ArrayList) iterable.first().get("booksRentedOut");
+        //     BasicDBObject test2 = (BasicDB) test.get(0);
+            System.out.println(test.get(0).getClass(Class<BasicDBObject>));
+        }
+        */
+        //Check that Book exist
+        iterable = db.getCollection("books").find(new Document("_id", new ObjectId(book.getID())));
+
+        if (iterable.first() == null) {
+            System.out.println("book says fuck you at id " + book.getID());
+            return false;
+        }
+
+        newQuantity = iterable.first().getInteger("quantity") - 1;
+
+        //calculate date the book must be returned
+        /*  NEED TO IMPLEMENT MEMBERSHIP TYPE
+        if(user.getAccountType() == )
+            returnDate = new Date(returnDate.getTime() + 7 * DAY_IN_MS);
+        else
+            returnDate = new Date(returnDate.getTime() + 14 * DAY_IN_MS);
+        */
+        //update database that user has checked out a book
+
+        db.getCollection("users").updateOne(new Document("_id", new ObjectId(user.getID())),
+                new Document("$set", new Document("booksRentedOut", asList(new Document("bookID",
+                        new ObjectId(book.getID())).append("dueDate", returnDate).append("returned", false)))));
+
+        db.getCollection("books").updateOne(new Document("_id", new ObjectId(book.getID())), new Document("$set",
+                new Document("quantity", newQuantity)));
+
+        //##### need to consider a update method for users and books to be used here
+
+        return true;
+    }
+
 }

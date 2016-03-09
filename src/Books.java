@@ -2,14 +2,23 @@
  * Created by raulmartinez on 3/7/16.
  */
 public class Books {
-    private String name, author, genre;
+    private String name, author, genre, id;
     private int quantity;
 
-    public Books(int quantity, String genre, String author, String name) {
+    public Books(int quantity, String genre, String author, String name, String id) {
         this.quantity = quantity;
         this.genre = genre;
         this.author = author;
         this.name = name;
+        setID(id);
+    }
+
+    public String getID() {
+        return id;
+    }
+
+    public void setID(String id) {
+        this.id = id;
     }
 
     public String getName() {

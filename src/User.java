@@ -5,8 +5,20 @@ import java.util.ArrayList;
  */
 public class User {
     private boolean isAuthenticated = false;
-    private String firstName, lastName, accountType, userName;
+    private String firstName, lastName, accountType, userName, id;
     ArrayList<String> booksCheckedOut;
+
+    public User() { }
+
+    public User(boolean isAuthenticated, String firstName, String lastName, String accountType, String userName, String id, ArrayList<String> booksCheckedOut) {
+        this.isAuthenticated = isAuthenticated;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.accountType = accountType;
+        this.userName = userName;
+        this.id = id;
+        this.booksCheckedOut = booksCheckedOut;
+    }
 
     public String getUserName() {
         return userName;
@@ -16,15 +28,12 @@ public class User {
         this.userName = userName;
     }
 
-    public User() { }
+    public String getID() {
+        return id;
+    }
 
-    public User(boolean isAuthenticated, String firstName, String lastName, String accountType, String userName, ArrayList<String> booksCheckedOut) {
-        this.isAuthenticated = isAuthenticated;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.accountType = accountType;
-        this.userName = userName;
-        this.booksCheckedOut = booksCheckedOut;
+    public void setID(String id) {
+        this.id = id;
     }
 
     public boolean isAuthenticated() {

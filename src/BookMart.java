@@ -1,30 +1,63 @@
 import java.util.ArrayList;
+import java.util.Scanner;
 
 /**
  * Created by raulmartinez on 2/29/16.
  */
 public class BookMart {
+
+    private static Scanner reader = new Scanner(System.in);
+    private static User authenticatedUser;
+    private static ArrayList<Books> books;
+
     public static void main(String[] args){
+        login();
+    }
+    private static void login() {
+        reader = new Scanner(System.in);
+        System.out.println("Login");
+        System.out.print("\tUsername: ");
+        String userName = reader.nextLine();
+        System.out.print("\tPassword: ");
+        String password = reader.nextLine();
 
-        /*
-        User user = new User(false, "raul","martinez", "user", "raul5660",new ArrayList<String>());
-        boolean isCreated = DatabaseController.createUser(user, "Defense08");
-        user.setAuthenticated(isCreated);
-        if (user.isAuthenticated())
-            System.out.println("successful");
-          */
+        authenticatedUser = DatabaseController.Login(userName,password);
 
-        User user = DatabaseController.Login("admin", "Defense08");
+        if (authenticatedUser.isAuthenticated()) {
+            genres();
+        }
+    }
+    private static void genres() {
+        reader = new Scanner(System.in);
+        System.out.println("Genres");
+        for (int i = 0; i < DatabaseController.genres.length; i++) {
+            System.out.println(String.format("\t%d) %s", i, DatabaseController.genres[i]));
+        }
+        System.out.println(String.format("\t%d) %s", DatabaseController.genres.length, "Logout"));
+        System.out.print("Input: ");
+        int genre = reader.nextInt();
+        if (genre == DatabaseController.genres.length) {
+            authenticatedUser = new User();
+            login();
+        } else {
+            books = DatabaseController.getBooksByGenre(DatabaseController.genres[genre]);
+            DisplayBooks();
+        }
+    }
 
-        System.out.println(user.getUserName());
-
-        ArrayList<Books> testBooks =  DatabaseController.getBooks();
-
-        System.out.println(testBooks.get(0).getName());
-
-        if(DatabaseController.checkoutBook(user, testBooks.get(0)))
-            System.out.println("Book added");
-        else
-            System.out.println("adding failed");
+    private static void DisplayBooks() {
+        System.out.println(books.get(0).getGenre());
+        for(int i = 0; i < books.size(); i++) {
+            System.out.println(String.format("\t%d) %s", i,books.get(i).getName()));
+        }
+        System.out.println(String.format("\t%d) %s", books.size(), "Back"));
+        System.out.print("Input: ");
+        int input = reader.nextInt();
+        if (input == books.size())
+        {
+            genres();
+        } else {
+            System.out.println(String.format("Are you sure you want to checkout %s",books.get(input).getName()));
+        }
     }
 }

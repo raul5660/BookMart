@@ -10,6 +10,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import static java.util.Arrays.asList;
 import static java.util.Arrays.deepHashCode;
@@ -22,6 +24,9 @@ public class DatabaseController {
     private static MongoDatabase db;
     public static String[] genres = {"Art", "Business & Economics", "Computer Science", "Design", "Education", "Law", "Mathematics", "Music", "Philosophy and Psychology"};
 
+    /**
+     * Initializes database client connection
+     */
     private static void Initialize() {
         MongoClient mongoClient = new MongoClient("127.0.0.1", 27017);
         db = mongoClient.getDatabase("BookMart");
@@ -69,7 +74,7 @@ public class DatabaseController {
             public void apply(final Document document) {
                 User tmpuser = new User();
                  if (document.getString("passWord").equals(password)){
-                     tmpuser =  new User(
+                     user[0] =  new User(
                              true,
                              document.getString("firstName"),
                              document.getString("lastName"),
@@ -78,8 +83,10 @@ public class DatabaseController {
                              document.get("_id").toString(),
                              ((ArrayList<String>) document.get("booksRentedOut"))
                      );
+                     user[0].setAuthenticated(true);
+                 } else {
+                     user[0] = new User();
                  }
-                user[0] = tmpuser;
             }
         });
 

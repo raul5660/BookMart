@@ -24,9 +24,26 @@ public class BookMart {
         authenticatedUser = DatabaseController.Login(userName,password);
 
         if (authenticatedUser.isAuthenticated()) {
-            genres();
+            if (authenticatedUser.getAccountType().equals("admin")) {
+                adminConsole();
+            } else {
+                genres();
+            }
         }
     }
+
+    private static void adminConsole(){
+        System.out.println("Admin Console");
+        System.out.println("\t0) History\n\t1) Genres\n\t2) Logout");
+        int tmp = reader.nextInt();
+        if (tmp == 1) {
+            genres();
+        } else if (tmp == 2){
+            authenticatedUser = new User();
+            login();
+        }
+    }
+
     private static void genres() {
         reader = new Scanner(System.in);
         System.out.println("Genres");

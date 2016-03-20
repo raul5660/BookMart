@@ -202,8 +202,7 @@ public class DatabaseController {
     //****************************************************************************************
     public static boolean checkoutBook(User user, Books book)
     {
-        final long DAY_IN_MS = 1000 * 60 * 60 * 24; //number of miliseconds in a day
-        Date returnDate = new Date();               //Start at current date
+        Date date = new Date();               //Start at current date
         int newQuantity;                            //the amount of book left after operation
 
         Initialize();
@@ -236,25 +235,16 @@ public class DatabaseController {
         //Checks that the user does not already have this book checked out
         for (Document doc : user.getBooksCheckedOut())
         {
-            if ((doc.get("bookID")).equals(new ObjectId(book.getID())) && !((boolean)doc.get("returned")))
+            if ((doc.get("bookID")).equals(new ObjectId(book.getID())) && !(doc.getBoolean("returned")))
             {
                 return false;
             }
         }
 
-        //calculate date the book must be returned
-        if (user.getMembershipType() != null)
-        {
-            if (user.getMembershipType().equals("Student"))
-                returnDate = new Date(returnDate.getTime() + 7 * DAY_IN_MS);
-            else
-                returnDate = new Date(returnDate.getTime() + 14 * DAY_IN_MS);
-        }
-
         //update database that user has checked out a book
         db.getCollection("users").updateOne(new Document("_id", new ObjectId(user.getID())),
                 new Document("$push", new Document("booksRentedOut", new Document().append("bookID",
-                        new ObjectId(book.getID())).append("dueDate", returnDate).append("returned", false))));
+                        new ObjectId(book.getID())).append("dateCheckedOut", date).append("returned", false))));
 
         db.getCollection("books").updateOne(new Document("_id", new ObjectId(book.getID())), new Document("$set",
                 new Document("quantity", newQuantity)));
@@ -299,7 +289,7 @@ public class DatabaseController {
         //Checks that the user does have this book checked out and has not returned it
         for (Document doc : user.getBooksCheckedOut())
         {
-            if (!((doc.get("bookID")).equals(new ObjectId(book.getID())) && !((boolean)doc.get("returned"))))
+            if (!((doc.get("bookID")).equals(new ObjectId(book.getID())) && !(doc.getBoolean("returned"))))
             {
                 return false;
             }

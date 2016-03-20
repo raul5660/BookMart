@@ -1,6 +1,7 @@
 import org.bson.Document;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Scanner;
 
 /**
@@ -11,6 +12,7 @@ public class BookMart {
     private static Scanner reader = new Scanner(System.in);
     private static User authenticatedUser;
     private static ArrayList<Books> books;
+    private static long DAY_IN_MS = 1000 * 60 * 60 * 24; //number of miliseconds in a day
 
     public static void main(String[] args){
         login();
@@ -26,41 +28,40 @@ public class BookMart {
         authenticatedUser = DatabaseController.Login(userName,password);
 
         if (authenticatedUser.isAuthenticated()) {
-            if (authenticatedUser.getAccountType().equals("admin")) {
-                adminConsole();
-            } else {
-                userConsole();
+            console();
+        }
+    }
+
+    private static void console() {
+        if (authenticatedUser.getAccountType().equals("admin"))
+        {
+            System.out.println("Admin Console");
+            System.out.println("\t0) History\n\t1) Genres\n\t2) Return\n\t3) Logout");
+            int tmp = reader.nextInt();
+            if (tmp == 0) {
+                history();
+            } else if (tmp == 1) {
+                genres();
+            } else if (tmp == 2) {
+                returnBooks();
+            } else if (tmp == 3) {
+                authenticatedUser = new User();
+                login();
             }
         }
-    }
-
-    private static void adminConsole() {
-        System.out.println("Admin Console");
-        System.out.println("\t0) History\n\t1) Genres\n\t2) Return\n\t3) Logout");
-        int tmp = reader.nextInt();
-        if (tmp == 0){
-            history();
-        } else if (tmp == 1) {
-            genres();
-        } else if (tmp == 2){
-            returnBooks();
-        } else if (tmp ==3){
-            authenticatedUser = new User();
-            login();
-        }
-    }
-
-    private static void userConsole() {
-        System.out.println("User Console");
-        System.out.println("\t0) Genres\n\t1) Return\n\t2) Logout");
-        int tmp = reader.nextInt();
-        if (tmp == 0) {
-            genres();
-        } else if (tmp == 1){
-            returnBooks();
-        } else if (tmp ==2){
-            authenticatedUser = new User();
-            login();
+        else
+        {
+            System.out.println("User Console");
+            System.out.println("\t0) Genres\n\t1) Return\n\t2) Logout");
+            int tmp = reader.nextInt();
+            if (tmp == 0) {
+                genres();
+            } else if (tmp == 1){
+                returnBooks();
+            } else if (tmp ==2){
+                authenticatedUser = new User();
+                login();
+            }
         }
     }
 
@@ -117,7 +118,7 @@ public class BookMart {
         {
             for (Document doc : tmpUser.getBooksCheckedOut()) {
                 Books book = DatabaseController.documentToBooks(doc);
-                System.out.println(book.getName());
+                System.out.println("Checked Out: " + doc.getDate("dateCheckedOut") + " - " + book.getName());
             }
         }
         else
@@ -125,7 +126,7 @@ public class BookMart {
             System.out.println("This user has no history");
         }
         System.out.println();
-        adminConsole();
+        console();
     }
 
 
@@ -137,8 +138,20 @@ public class BookMart {
 
         for (a = 0; a < checkedOut.size(); a++)
         {
-            book = DatabaseController.documentToBooks(checkedOut.get(a));
-            System.out.println(a + ": " + book.getName());
+            if(!checkedOut.get(a).getBoolean("returned"))
+            {
+                Date dueDate = checkedOut.get(a).getDate("dateCheckedOut");
+                if(authenticatedUser.getMembershipType() != null)
+                {
+                    if (authenticatedUser.getMembershipType() == "Student")
+                        dueDate = new Date(dueDate.getTime() + 7 * DAY_IN_MS);
+                    else
+                        dueDate = new Date(dueDate.getTime() + 14 * DAY_IN_MS);
+                }
+
+                book = DatabaseController.documentToBooks(checkedOut.get(a));
+                System.out.println(a + ": Due: " + dueDate + " - " + book.getName());
+            }
         }
 
         System.out.println(a + ": Back");
@@ -146,7 +159,7 @@ public class BookMart {
         int input = reader.nextInt();
 
         if (input == a)
-            adminConsole();
+            console();
         else
             DatabaseController.returnBook(authenticatedUser, DatabaseController.documentToBooks(checkedOut.get(input)));
 

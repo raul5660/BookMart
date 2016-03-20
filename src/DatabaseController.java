@@ -1,4 +1,5 @@
 import com.mongodb.*;
+import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
 import org.bson.Document;
 import com.mongodb.client.FindIterable;
@@ -81,7 +82,7 @@ public class DatabaseController {
                              document.getString("accountType"),
                              document.getString("userName"),
                              document.get("_id").toString(),
-                             ((ArrayList<String>) document.get("booksRentedOut"))
+                             ((ArrayList<Document>) document.get("booksRentedOut"))
                      );
                      user[0].setAuthenticated(true);
                  } else {
@@ -127,7 +128,8 @@ public class DatabaseController {
     // -updates database table that the user has checkedout that book
     // -decreases quantity of book left in database
     //****************************************************************************************
-    public static boolean checkoutBook(User user, Books book) {
+    public static boolean checkoutBook(User user, final Books book)
+    {
         final long DAY_IN_MS = 1000 * 60 * 60 * 24; //number of miliseconds in a day
         Date returnDate = new Date();               //Start at current date
         int newQuantity;                            //the amount of book left after operation
@@ -136,27 +138,39 @@ public class DatabaseController {
 
         //Check that user exists
         FindIterable<Document> iterable = db.getCollection("users").find(new Document("_id", new ObjectId(user.getID())));
-        if (iterable.first() == null) {
-            System.out.println("User says fuck you");
+
+        if (iterable == null)
+        {
+            System.out.println("User does not exist");
             return false;
         }
-        /* Start of error checking for duplicate rentals
-        else
-        {
-            ArrayList test = (ArrayList) iterable.first().get("booksRentedOut");
-        //     BasicDBObject test2 = (BasicDB) test.get(0);
-            System.out.println(test.get(0).getClass(Class<BasicDBObject>));
-        }
-        */
-        //Check that Book exist
-        iterable = db.getCollection("books").find(new Document("_id", new ObjectId(book.getID())));
 
-        if (iterable.first() == null) {
-            System.out.println("book says fuck you at id " + book.getID());
+        //Check that Book exist and is in stock
+        iterable =  db.getCollection("books").find(new Document("_id", new ObjectId(book.getID())));
+
+        if (iterable ==  null)
+        {
+            System.out.println("book does not exist");
+            return false;
+        }
+        else if (iterable.first().getInteger("quantity") < 1)
+        {
+            System.out.printf("book not in stock");
             return false;
         }
 
         newQuantity = iterable.first().getInteger("quantity") - 1;
+
+        System.out.println(newQuantity);
+
+        //Checks that the user does not already have this book checked out
+        for (Document doc : user.getBooksCheckedOut())
+        {
+            if ((doc.get("bookID")).equals(new ObjectId(book.getID())) && doc.get("returned") == false)
+            {
+                return false;
+            }
+        }
 
         //calculate date the book must be returned
         /*  NEED TO IMPLEMENT MEMBERSHIP TYPE
@@ -168,8 +182,8 @@ public class DatabaseController {
         //update database that user has checked out a book
 
         db.getCollection("users").updateOne(new Document("_id", new ObjectId(user.getID())),
-                new Document("$set", new Document("booksRentedOut", asList(new Document("bookID",
-                        new ObjectId(book.getID())).append("dueDate", returnDate).append("returned", false)))));
+                new Document("$push", new Document("booksRentedOut", new Document().append("bookID",
+                        new ObjectId(book.getID())).append("dueDate", returnDate).append("returned", false))));
 
         db.getCollection("books").updateOne(new Document("_id", new ObjectId(book.getID())), new Document("$set",
                 new Document("quantity", newQuantity)));

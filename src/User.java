@@ -1,3 +1,5 @@
+import org.bson.Document;
+
 import java.util.ArrayList;
 
 /**
@@ -6,11 +8,11 @@ import java.util.ArrayList;
 public class User {
     private boolean isAuthenticated = false;
     private String firstName, lastName, accountType, userName, id;
-    ArrayList<String> booksCheckedOut;
+    private ArrayList<Document> booksCheckedOut;
 
     public User() { }
 
-    public User(boolean isAuthenticated, String firstName, String lastName, String accountType, String userName, String id, ArrayList<String> booksCheckedOut) {
+    public User(boolean isAuthenticated, String firstName, String lastName, String accountType, String userName, String id, ArrayList<Document> booksCheckedOut) {
         this.isAuthenticated = isAuthenticated;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -68,11 +70,11 @@ public class User {
         this.accountType = accountType;
     }
 
-    public ArrayList<String> getBooksCheckedOut() {
+    public ArrayList<Document> getBooksCheckedOut() {
         return booksCheckedOut;
     }
 
-    public void setBooksCheckedOut(ArrayList<String> booksCheckedOut) {
+    public void setBooksCheckedOut(ArrayList<Document> booksCheckedOut) {
         this.booksCheckedOut = booksCheckedOut;
     }
 

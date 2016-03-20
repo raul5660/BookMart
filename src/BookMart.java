@@ -15,8 +15,100 @@ public class BookMart {
     private static long DAY_IN_MS = 1000 * 60 * 60 * 24; //number of miliseconds in a day
 
     public static void main(String[] args){
+        introduction();
+    }
+
+    private static void introduction()
+    {
+        boolean go = true;
+
+        System.out.println("Welcome to BookMart!");
+        System.out.println("Do you have a account with us? (Y/N)");
+        while(go)
+        {
+            System.out.print("input:");
+
+            String input = reader.next();
+
+            switch (input) {
+                case "n":
+                case "N":
+                    accountCreation();
+                    go = false;
+                    break;
+                case "y":
+                case "Y":
+                    login();
+                    go = false;
+                    break;
+                default:
+                    go = true;
+                    System.out.println("Incorrect input, please enter Y/N");
+            }
+        }
+
+    }
+
+    private static void accountCreation()
+    {
+        String firstName;
+        String lastName;
+        String userName;
+        String password = "";
+        String accountType = "user";
+        String membershipType = "";
+        boolean lock = true;
+        User tmpUser;
+        int temp;
+
+
+        System.out.println("Welcome to our account creation page we need to ask you a little about yourself to get you started");
+        System.out.println("Please enter your First Name");
+        firstName = reader.next();
+
+        System.out.println("Please enter your Last Name");
+        lastName = reader.next();
+
+        System.out.println("Please enter your UserName");
+        userName = reader.next();
+
+        while (lock)
+        {
+            System.out.println("Please enter your Password");
+            password = reader.next();
+
+            System.out.println("Please enter your Password again");
+            String tmpPassword = reader.next();
+
+            if (password.equals(tmpPassword))
+                lock = false;
+            else
+                System.out.println("Passwords do not match please try again");
+        }
+
+        do
+        {
+            System.out.println("Are you:");
+            System.out.println("1: Student");
+            System.out.println("2: Faculty");
+            System.out.println("Enter 1/2: ");
+            temp = reader.nextInt();
+            if (temp == 1)
+                membershipType = "Student";
+            else
+                membershipType = "Faculty";
+        }while( !(temp == 1 || temp == 2) );
+
+        tmpUser = new User(false, firstName, lastName, accountType, membershipType, userName, "null", new ArrayList<Document>());
+
+        if(DatabaseController.createUser(tmpUser, password))
+            System.out.println("Your account has been created");
+        else
+            System.out.println("error creating account");
+
         login();
     }
+
     private static void login() {
         reader = new Scanner(System.in);
         System.out.println("Login");
@@ -114,6 +206,7 @@ public class BookMart {
         String input = reader.next();
         User tmpUser =  DatabaseController.getUser(input);
 
+        //checks to make sure the user has a hstory to check
         if(tmpUser.getBooksCheckedOut().size() > 0)
         {
             for (Document doc : tmpUser.getBooksCheckedOut()) {
@@ -136,10 +229,12 @@ public class BookMart {
         Books book;
         int a;
 
+        //Loop though all books in history looking for what has not been returned
         for (a = 0; a < checkedOut.size(); a++)
         {
             if(!checkedOut.get(a).getBoolean("returned"))
             {
+                //calculate the date the book should be returned by
                 Date dueDate = checkedOut.get(a).getDate("dateCheckedOut");
                 if(authenticatedUser.getMembershipType() != null)
                 {
@@ -156,7 +251,7 @@ public class BookMart {
 
         System.out.println(a + ": Back");
 
-        int input = reader.nextInt(); 
+        int input = reader.nextInt();
 
         if (input == a)
             console();

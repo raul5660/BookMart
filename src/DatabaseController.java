@@ -5,18 +5,10 @@ import org.bson.Document;
 import com.mongodb.client.FindIterable;
 import org.bson.types.ObjectId;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Locale;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import static java.util.Arrays.asList;
-import static java.util.Arrays.deepHashCode;
-import static com.mongodb.client.model.Filters.*;
 
 /**
  * Created by raulmartinez on 3/3/16.

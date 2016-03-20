@@ -53,11 +53,20 @@ public class BookMart {
         System.out.println(String.format("\t%d) %s", books.size(), "Back"));
         System.out.print("Input: ");
         int input = reader.nextInt();
-        if (input == books.size())
-        {
+        if (input == books.size()) {
             genres();
         } else {
-            System.out.println(String.format("Are you sure you want to checkout %s",books.get(input).getName()));
+            System.out.println(String.format("Are you sure you want to checkout %s (Y/n):",books.get(input).getName()));
+            String tmp = reader.nextLine();
+            switch (tmp.toLowerCase()) {
+                case "n":
+                    break;
+                case "no":
+                    break;
+                default:
+                    DatabaseController.checkoutBook(authenticatedUser,books.get(input));
+                    break;
+            }
         }
     }
 }

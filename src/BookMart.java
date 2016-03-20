@@ -206,12 +206,14 @@ public class BookMart {
         String input = reader.next();
         User tmpUser =  DatabaseController.getUser(input);
 
+        System.out.println(input + " has checkout the following books.");
+
         //checks to make sure the user has a hstory to check
         if(tmpUser.getBooksCheckedOut().size() > 0)
         {
             for (Document doc : tmpUser.getBooksCheckedOut()) {
                 Books book = DatabaseController.documentToBooks(doc);
-                System.out.println("Checked Out: " + doc.getDate("dateCheckedOut") + " - " + book.getName());
+                System.out.println("\tChecked Out: " + doc.getDate("dateCheckedOut") + " - " + book.getName());
             }
         }
         else
@@ -229,6 +231,8 @@ public class BookMart {
         Books book;
         int a;
 
+        System.out.println("The following are books you have checked out that need to be returned.");
+
         //Loop though all books in history looking for what has not been returned
         for (a = 0; a < checkedOut.size(); a++)
         {
@@ -238,14 +242,14 @@ public class BookMart {
                 Date dueDate = checkedOut.get(a).getDate("dateCheckedOut");
                 if(authenticatedUser.getMembershipType() != null)
                 {
-                    if (authenticatedUser.getMembershipType() == "Student")
+                    if (authenticatedUser.getMembershipType().equals("Student"))
                         dueDate = new Date(dueDate.getTime() + 7 * DAY_IN_MS);
                     else
                         dueDate = new Date(dueDate.getTime() + 14 * DAY_IN_MS);
                 }
 
                 book = DatabaseController.documentToBooks(checkedOut.get(a));
-                System.out.println(a + ": Due: " + dueDate + " - " + book.getName());
+                System.out.println("\t" + a + ": Due: " + dueDate + " - " + book.getName());
             }
         }
 

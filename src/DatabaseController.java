@@ -166,7 +166,7 @@ public class DatabaseController {
         //Checks that the user does not already have this book checked out
         for (Document doc : user.getBooksCheckedOut())
         {
-            if ((doc.get("bookID")).equals(new ObjectId(book.getID())) && doc.get("returned") == false)
+            if ((doc.get("bookID")).equals(new ObjectId(book.getID())) && !((boolean)doc.get("returned")))
             {
                 return false;
             }

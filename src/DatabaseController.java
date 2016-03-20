@@ -80,6 +80,7 @@ public class DatabaseController {
                              document.getString("firstName"),
                              document.getString("lastName"),
                              document.getString("accountType"),
+                             document.getString("membershipType"),
                              document.getString("userName"),
                              document.get("_id").toString(),
                              ((ArrayList<Document>) document.get("booksRentedOut"))
@@ -113,6 +114,7 @@ public class DatabaseController {
         tmpUser.append("userName", user.getUserName());
         tmpUser.append("passWord", password);
         tmpUser.append("accountType", user.getAccountType());
+        tmpUser.append("membershipType", user.getMembershipType());
         tmpUser.append("booksRentedOut", asList());
         db.getCollection("users").insertOne(tmpUser);
 

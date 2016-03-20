@@ -6,11 +6,11 @@ public class Books {
     private int quantity;
 
     public Books(int quantity, String genre, String author, String name, String id) {
-        this.quantity = quantity;
-        this.genre = genre;
-        this.author = author;
-        this.name = name;
-        setID(id);
+        this.setQuantity(quantity);
+        this.setGenre(genre);
+        this.setAuthor(author);
+        this.setName(name);
+        this.setID(id);
     }
 
     public String getID() {

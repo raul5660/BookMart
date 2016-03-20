@@ -7,19 +7,20 @@ import java.util.ArrayList;
  */
 public class User {
     private boolean isAuthenticated = false;
-    private String firstName, lastName, accountType, userName, id;
+    private String firstName, lastName, accountType, membershipType, userName, id;
     private ArrayList<Document> booksCheckedOut;
 
     public User() { }
 
-    public User(boolean isAuthenticated, String firstName, String lastName, String accountType, String userName, String id, ArrayList<Document> booksCheckedOut) {
-        this.isAuthenticated = isAuthenticated;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.accountType = accountType;
-        this.userName = userName;
-        this.id = id;
-        this.booksCheckedOut = booksCheckedOut;
+    public User(boolean isAuthenticated, String firstName, String lastName, String accountType, String membershipType, String userName, String id, ArrayList<Document> booksCheckedOut) {
+        this.setAuthenticated(isAuthenticated);
+        this.setFirstName(firstName);
+        this.setLastName(lastName);
+        this.setAccountType(accountType);
+        this.setMembershipType(membershipType);
+        this.setUserName(userName);
+        this.setID(id);
+        this.setBooksCheckedOut(booksCheckedOut);
     }
 
     public String getUserName() {
@@ -68,6 +69,14 @@ public class User {
 
     public void setAccountType(String accountType) {
         this.accountType = accountType;
+    }
+
+    public String getMembershipType() {
+        return membershipType;
+    }
+
+    public void setMembershipType(String membershipType) {
+        this.membershipType = membershipType;
     }
 
     public ArrayList<Document> getBooksCheckedOut() {

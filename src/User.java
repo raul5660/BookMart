@@ -7,7 +7,8 @@ import java.util.ArrayList;
  */
 public class User {
     private boolean isAuthenticated = false;
-    private String firstName, lastName, accountType, membershipType, userName, id;
+    private String firstName, lastName, accountType, userName, id;
+    private String membershipType;                                  //Should be Student or Faculty
     private ArrayList<Document> booksCheckedOut;
 
     public User() { }

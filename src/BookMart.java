@@ -34,11 +34,13 @@ public class BookMart {
         }
     }
 
-    private static void adminConsole(){
+    private static void adminConsole() {
         System.out.println("Admin Console");
         System.out.println("\t0) History\n\t1) Genres\n\t2) Return\n\t3) Logout");
         int tmp = reader.nextInt();
-        if (tmp == 1) {
+        if (tmp == 0){
+            history();
+        } else if (tmp == 1) {
             genres();
         } else if (tmp == 2){
             returnBooks();
@@ -78,7 +80,7 @@ public class BookMart {
             genres();
         } else {
             System.out.println(String.format("Are you sure you want to checkout %s (Y/n):",books.get(input).getName()));
-            String tmp = reader.nextLine();
+            String tmp = reader.next();
             switch (tmp.toLowerCase()) {
                 case "n":
                     break;
@@ -90,6 +92,28 @@ public class BookMart {
             }
         }
     }
+
+    private static void history()
+    {
+        System.out.println("Enter the username of the user to see his/her purchase history");
+        String input = reader.next();
+        User tmpUser =  DatabaseController.getUser(input);
+
+        if(tmpUser.getBooksCheckedOut().size() > 0)
+        {
+            for (Document doc : tmpUser.getBooksCheckedOut()) {
+                Books book = DatabaseController.documentToBooks(doc);
+                System.out.println(book.getName());
+            }
+        }
+        else
+        {
+            System.out.println("This user has no history");
+        }
+        System.out.println();
+        adminConsole();
+    }
+
 
     private static void returnBooks()
     {

@@ -126,6 +126,36 @@ public class DatabaseController {
     }
 
     //****************************************************************************************
+    // -Takes in a String of a username
+    // -returns a User object that corresponds with the username
+    //****************************************************************************************
+
+    public static User getUser(String userName)
+    {
+        Initialize();
+        final User[] user = new User[1];
+        FindIterable<Document> iterable = db.getCollection("users").find(new Document("userName", userName));
+        iterable.forEach(new Block<Document>() {
+            @Override
+            public void apply(final Document document) {
+                user[0] =  new User(
+                        true,
+                        document.getString("firstName"),
+                        document.getString("lastName"),
+                        document.getString("accountType"),
+                        document.getString("membershipType"),
+                        document.getString("userName"),
+                        document.get("_id").toString(),
+                        ((ArrayList<Document>) document.get("booksRentedOut"))
+                );
+                user[0].setAuthenticated(false);
+            }
+        });
+
+        return user[0];
+    }
+
+    //****************************************************************************************
     // -Takes in a Document
     // -returns a Books object that corresponds to that Document
     //****************************************************************************************
@@ -236,6 +266,12 @@ public class DatabaseController {
         return true;
     }
 
+
+    //****************************************************************************************
+    // -Takes in a User and Book
+    // -updates database table that the user has returned that book
+    // -increases quantity of book left in database
+    //****************************************************************************************
     public static boolean returnBook(User user, Books book)
     {
         int newQuantity;                            //the amount of book left after operation

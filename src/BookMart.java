@@ -156,7 +156,7 @@ public class BookMart {
 
         System.out.println(a + ": Back");
 
-        int input = reader.nextInt();
+        int input = reader.nextInt(); 
 
         if (input == a)
             console();

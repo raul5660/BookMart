@@ -126,11 +126,51 @@ public class DatabaseController {
     }
 
     //****************************************************************************************
+    // -Takes in a Document
+    // -returns a Books object that corresponds to that Document
+    //****************************************************************************************
+
+    public static Books documentToBooks(Document doc)
+    {
+        final Books[] book =  new Books[1];
+
+        FindIterable<Document> iterable = db.getCollection("books").find(new Document("_id", doc.get("bookID")));
+        iterable.forEach(new Block<Document>() {
+            @Override
+            public void apply(final Document document) {
+                Object tmp = document.get("author");
+                String authors = "";
+                if (tmp.getClass().equals(String.class)) {
+                    authors = tmp.toString();
+                } else {
+                    StringBuilder sbuilder = new StringBuilder();
+                    for (int i = 0; i < ((ArrayList) tmp).size(); i++) {
+                        sbuilder.append(((ArrayList) tmp).get(i).toString());
+                        if(((ArrayList) tmp).size()-1 != i){
+                            sbuilder.append(", ");
+                        }
+                    }
+                    authors = sbuilder.toString();
+                }
+                book[0] = new Books(
+                        document.getInteger("quantity"),
+                        document.getString("genre"),
+                        authors,
+                        document.getString("name"),
+                        document.get("_id").toString()
+                );
+            }
+        });
+
+        return book[0];
+    }
+
+    //****************************************************************************************
     // -Takes in a User and Book
     // -updates database table that the user has checkedout that book
     // -decreases quantity of book left in database
     //****************************************************************************************
-    public static boolean checkoutBook(User user, final Books book)
+    public static boolean checkoutBook(User user, Books book)
     {
         final long DAY_IN_MS = 1000 * 60 * 60 * 24; //number of miliseconds in a day
         Date returnDate = new Date();               //Start at current date
@@ -175,14 +215,15 @@ public class DatabaseController {
         }
 
         //calculate date the book must be returned
-        /*  NEED TO IMPLEMENT MEMBERSHIP TYPE
-        if(user.getAccountType() == )
-            returnDate = new Date(returnDate.getTime() + 7 * DAY_IN_MS);
-        else
-            returnDate = new Date(returnDate.getTime() + 14 * DAY_IN_MS);
-        */
-        //update database that user has checked out a book
+        if (user.getMembershipType() != null)
+        {
+            if (user.getMembershipType().equals("Student"))
+                returnDate = new Date(returnDate.getTime() + 7 * DAY_IN_MS);
+            else
+                returnDate = new Date(returnDate.getTime() + 14 * DAY_IN_MS);
+        }
 
+        //update database that user has checked out a book
         db.getCollection("users").updateOne(new Document("_id", new ObjectId(user.getID())),
                 new Document("$push", new Document("booksRentedOut", new Document().append("bookID",
                         new ObjectId(book.getID())).append("dueDate", returnDate).append("returned", false))));
@@ -194,5 +235,52 @@ public class DatabaseController {
 
         return true;
     }
+
+    public static boolean returnBook(User user, Books book)
+    {
+        int newQuantity;                            //the amount of book left after operation
+
+        Initialize();
+
+        //Check that user exists
+        FindIterable<Document> iterable = db.getCollection("users").find(new Document("_id", new ObjectId(user.getID())));
+
+        if (iterable == null)
+        {
+            System.out.println("User does not exist");
+            return false;
+        }
+
+        //Check that Book exist and is in stock
+        iterable =  db.getCollection("books").find(new Document("_id", new ObjectId(book.getID())));
+
+        if (iterable ==  null)
+        {
+            System.out.println("book does not exist");
+            return false;
+        }
+
+        newQuantity = iterable.first().getInteger("quantity") + 1;
+
+        //Checks that the user does have this book checked out
+        for (Document doc : user.getBooksCheckedOut())
+        {
+            if (!((doc.get("bookID")).equals(new ObjectId(book.getID())) && !((boolean)doc.get("returned"))))
+            {
+                return false;
+            }
+        }
+
+        //update database that user has checked out a book
+        db.getCollection("users").updateOne(new Document("_id", new ObjectId(user.getID())),
+                new Document("$set", new Document("booksRentedOut", new Document().append("bookID",
+                        new ObjectId(book.getID())).append("returned", true))));
+
+        db.getCollection("books").updateOne(new Document("_id", new ObjectId(book.getID())), new Document("$set",
+                new Document("quantity", newQuantity)));
+
+        return true;
+    }
+
 
 }

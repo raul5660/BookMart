@@ -1,3 +1,5 @@
+import org.bson.Document;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -34,11 +36,13 @@ public class BookMart {
 
     private static void adminConsole(){
         System.out.println("Admin Console");
-        System.out.println("\t0) History\n\t1) Genres\n\t2) Logout");
+        System.out.println("\t0) History\n\t1) Genres\n\t2) Return\n\t3) Logout");
         int tmp = reader.nextInt();
         if (tmp == 1) {
             genres();
         } else if (tmp == 2){
+            returnBooks();
+        } else if (tmp ==3){
             authenticatedUser = new User();
             login();
         }
@@ -85,5 +89,24 @@ public class BookMart {
                     break;
             }
         }
+    }
+
+    private static void returnBooks()
+    {
+        ArrayList<Document> checkedOut = authenticatedUser.getBooksCheckedOut();
+        int a;
+
+        for (a = 0; a < checkedOut.size(); a++)
+            System.out.println(a + ": " + checkedOut.get(a));
+
+        System.out.println(a + ": Back");
+
+        int input = reader.nextInt();
+
+        if (input == a)
+            adminConsole();
+        else
+            DatabaseController.returnBook(authenticatedUser, DatabaseController.documentToBooks(checkedOut.get(input)));
+
     }
 }

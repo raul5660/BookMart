@@ -29,7 +29,7 @@ public class BookMart {
             if (authenticatedUser.getAccountType().equals("admin")) {
                 adminConsole();
             } else {
-                genres();
+                userConsole();
             }
         }
     }
@@ -45,6 +45,20 @@ public class BookMart {
         } else if (tmp == 2){
             returnBooks();
         } else if (tmp ==3){
+            authenticatedUser = new User();
+            login();
+        }
+    }
+
+    private static void userConsole() {
+        System.out.println("User Console");
+        System.out.println("\t0) Genres\n\t1) Return\n\t2) Logout");
+        int tmp = reader.nextInt();
+        if (tmp == 0) {
+            genres();
+        } else if (tmp == 1){
+            returnBooks();
+        } else if (tmp ==2){
             authenticatedUser = new User();
             login();
         }
@@ -118,10 +132,14 @@ public class BookMart {
     private static void returnBooks()
     {
         ArrayList<Document> checkedOut = authenticatedUser.getBooksCheckedOut();
+        Books book;
         int a;
 
         for (a = 0; a < checkedOut.size(); a++)
-            System.out.println(a + ": " + checkedOut.get(a));
+        {
+            book = DatabaseController.documentToBooks(checkedOut.get(a));
+            System.out.println(a + ": " + book.getName());
+        }
 
         System.out.println(a + ": Back");
 

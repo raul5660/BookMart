@@ -233,8 +233,6 @@ public class DatabaseController {
 
         newQuantity = iterable.first().getInteger("quantity") - 1;
 
-        System.out.println(newQuantity);
-
         //Checks that the user does not already have this book checked out
         for (Document doc : user.getBooksCheckedOut())
         {
@@ -298,7 +296,7 @@ public class DatabaseController {
 
         newQuantity = iterable.first().getInteger("quantity") + 1;
 
-        //Checks that the user does have this book checked out
+        //Checks that the user does have this book checked out and has not returned it
         for (Document doc : user.getBooksCheckedOut())
         {
             if (!((doc.get("bookID")).equals(new ObjectId(book.getID())) && !((boolean)doc.get("returned"))))
@@ -308,9 +306,8 @@ public class DatabaseController {
         }
 
         //update database that user has checked out a book
-        db.getCollection("users").updateOne(new Document("_id", new ObjectId(user.getID())),
-                new Document("$set", new Document("booksRentedOut", new Document().append("bookID",
-                        new ObjectId(book.getID())).append("returned", true))));
+        db.getCollection("users").updateOne(new Document("_id", new ObjectId(user.getID())).append("booksRentedOut.bookID",
+                new ObjectId(book.getID())), new Document("$set", new Document("booksRentedOut.$.returned", true)));
 
         db.getCollection("books").updateOne(new Document("_id", new ObjectId(book.getID())), new Document("$set",
                 new Document("quantity", newQuantity)));

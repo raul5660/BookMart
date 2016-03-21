@@ -12,20 +12,20 @@ import java.util.logging.Logger;
 import static java.util.Arrays.asList;
 
 /*
- * Name:
- * Type:
- * Arguments:
- * Description:
+ * Name: DatabaseController
+ * Type: Class
+ * Arguments: NA
+ * Description: This class is used to connect to the database system
  */
 public class DatabaseController {
     private static MongoDatabase db;
     public static String[] genres = {"Art", "Business & Economics", "Computer Science", "Design", "Education", "Law", "Mathematics", "Music", "Philosophy and Psychology"};
 
     /*
-     * Name:
-     * Type:
-     * Arguments:
-     * Description:
+     * Name: Initialize
+     * Type: Method
+     * Arguments: NA
+     * Description: This method is used to initialize conection to the datbase
      */
     private static void Initialize() {
         Logger mongoLogger = Logger.getLogger("org.mongodb.driver");
@@ -36,10 +36,10 @@ public class DatabaseController {
     }
 
     /*
-     * Name:
-     * Type:
-     * Arguments:
-     * Description:
+     * Name: getBooksByGenre
+     * Type: Method
+     * Arguments: String genre
+     * Description: This method will return a ArrayList of books of any given genre
      */
     public static ArrayList<Books> getBooksByGenre(String genre) {
         Initialize();
@@ -75,10 +75,10 @@ public class DatabaseController {
     }
 
     /*
-     * Name:
-     * Type:
-     * Arguments:
-     * Description:
+     * Name: Login
+     * Type: Method
+     * Arguments: String username, final String password
+     * Description: This method is used to login to our system
      */
     public static User Login(String username, final String password) {
         Initialize();
@@ -110,10 +110,10 @@ public class DatabaseController {
     }
 
     /*
-     * Name:
-     * Type:
-     * Arguments:
-     * Description:
+     * Name: getBooks
+     * Type: Method
+     * Arguments: NA
+     * Description: This method will list all books regardless of genre
      */
     public static ArrayList<Books> getBooks(){
         ArrayList<Books> Books = new ArrayList<Books>();
@@ -127,10 +127,10 @@ public class DatabaseController {
     }
 
     /*
-     * Name:
-     * Type:
-     * Arguments:
-     * Description:
+     * Name: createUser
+     * Type: Method
+     * Arguments: User user, String password, String paypalUserName
+     * Description: this method will create a user in the database for our system
      */
     public static boolean createUser(User user, String password, String paypalUserName) {
         Initialize();

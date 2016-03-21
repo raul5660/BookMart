@@ -6,6 +6,9 @@ import com.mongodb.client.FindIterable;
 import org.bson.types.ObjectId;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import static java.util.Arrays.asList;
 
 /*
@@ -25,6 +28,9 @@ public class DatabaseController {
      * Description:
      */
     private static void Initialize() {
+        Logger mongoLogger = Logger.getLogger("org.mongodb.driver");
+        mongoLogger.setLevel(Level.SEVERE);
+
         MongoClient mongoClient = new MongoClient("127.0.0.1", 27017);
         db = mongoClient.getDatabase("BookMart");
     }

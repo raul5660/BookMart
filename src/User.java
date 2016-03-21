@@ -110,90 +110,90 @@ public class User {
     }
 
     /*
-     * Name:
-     * Type:
-     * Arguments:
-     * Description:
+     * Name: setFirstName
+     * Type: Method
+     * Arguments: String firstName
+     * Description: Sets the objects firstName property
      */
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
 
     /*
-     * Name:
-     * Type:
-     * Arguments:
-     * Description:
+     * Name: getLastName
+     * Type: Method
+     * Arguments: NA
+     * Description: returns the objects lastName property
      */
     public String getLastName() {
         return lastName;
     }
 
     /*
-     * Name:
-     * Type:
-     * Arguments:
-     * Description:
+     * Name: setLastName
+     * Type: Method
+     * Arguments: String lastName
+     * Description: Sets the ojects lastName property
      */
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
 
     /*
-     * Name:
-     * Type:
-     * Arguments:
-     * Description:
+     * Name: getAccountType
+     * Type: Method
+     * Arguments: NA
+     * Description: returns the objects AccountType property
      */
     public String getAccountType() {
         return accountType;
     }
 
     /*
-     * Name:
-     * Type:
-     * Arguments:
-     * Description:
+     * Name: setAccountType
+     * Type: Method
+     * Arguments: String accountType
+     * Description: Sets the objects accountType property
      */
     public void setAccountType(String accountType) {
         this.accountType = accountType;
     }
 
     /*
-     * Name:
-     * Type:
-     * Arguments:
-     * Description:
+     * Name: getMembershipType
+     * Type: Method
+     * Arguments: NA
+     * Description: returns the objects membershipType property
      */
     public String getMembershipType() {
         return membershipType;
     }
 
     /*
-     * Name:
-     * Type:
-     * Arguments:
-     * Description:
+     * Name: setMembershipType
+     * Type: Method
+     * Arguments: String membershipType
+     * Description: sets the objects membershipType property
      */
     public void setMembershipType(String membershipType) {
         this.membershipType = membershipType;
     }
 
     /*
-     * Name:
-     * Type:
-     * Arguments:
-     * Description:
+     * Name: getBooksCheckedOut
+     * Type: Method
+     * Arguments: NA
+     * Description: returns the objects booksCheckOut property
      */
     public ArrayList<Document> getBooksCheckedOut() {
         return booksCheckedOut;
     }
 
     /*
-     * Name:
-     * Type:
-     * Arguments:
-     * Description:
+     * Name: setBooksCheckOut
+     * Type: Method
+     * Arguments: ArrayList<Document> booksCheckOut
+     * Description: sets the objects booksCheckOut property
      */
     public void setBooksCheckedOut(ArrayList<Document> booksCheckedOut) {
         this.booksCheckedOut = booksCheckedOut;

@@ -78,6 +78,7 @@ public class BookMart {
         String password = "";
         String accountType = "user";
         String membershipType = "";
+        String payPalUserName = "";
         boolean lock = true;
         User tmpUser;
         int temp;
@@ -114,15 +115,21 @@ public class BookMart {
             System.out.println("2: Faculty");
             System.out.println("Enter 1/2: ");
             temp = reader.nextInt();
-            if (temp == 1)
+            if (temp == 1) {
                 membershipType = "Student";
-            else
+                System.out.println("Student accounts are $7.99 a month");
+            } else {
                 membershipType = "Faculty";
+                System.out.println("Faculty accounts are $9.99 a month");
+            }
         }while( !(temp == 1 || temp == 2) );
 
         tmpUser = new User(false, firstName, lastName, accountType, membershipType, userName, "null", new ArrayList<Document>());
 
-        if(DatabaseController.createUser(tmpUser, password))
+        System.out.println("Please enter your Paypal Username for payment");
+        payPalUserName = reader.next();
+
+        if(DatabaseController.createUser(tmpUser, password, payPalUserName))
             System.out.println("Your account has been created");
         else
             System.out.println("error creating account");

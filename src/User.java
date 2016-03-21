@@ -2,30 +2,31 @@ import org.bson.Document;
 import java.util.ArrayList;
 
 /*
- * Name:
- * Type:
- * Arguments:
- * Description:
+ * Name: User
+ * Type: Class
+ * Arguments: NA
+ * Description: This class will be used to create objects to represent and hold user database
  */
 public class User {
+    // Attributes to be used within the class
     private boolean isAuthenticated = false;
     private String firstName, lastName, accountType, userName, id;
     private String membershipType;                                  //Should be Student or Faculty
     private ArrayList<Document> booksCheckedOut;
 
     /*
-     * Name:
-     * Type:
-     * Arguments:
-     * Description:
+     * Name: User
+     * Type: Constructor
+     * Arguments: NA
+     * Description: This is an empty constructor to create a user object without data
      */
     public User() { }
 
     /*
-     * Name:
-     * Type:
-     * Arguments:
-     * Description:
+     * Name: User
+     * Type: Constructor
+     * Arguments: boolean isAuthenticated, String firstName, String lastName, String accountType, String membershipType, String userName, String id, ArrayList<Document> booksCheckedOut
+     * Description: This constructor will be used to create a user object with all attributes defined
      */
     public User(boolean isAuthenticated, String firstName, String lastName, String accountType, String membershipType, String userName, String id, ArrayList<Document> booksCheckedOut) {
         this.setAuthenticated(isAuthenticated);
@@ -39,20 +40,20 @@ public class User {
     }
 
     /*
-     * Name:
-     * Type:
-     * Arguments:
-     * Description:
+     * Name: getUserName
+     * Type: Method
+     * Arguments: NA
+     * Description: returns the objects userName property
      */
     public String getUserName() {
         return userName;
     }
 
     /*
-     * Name:
-     * Type:
-     * Arguments:
-     * Description:
+     * Name: setUserName
+     * Type: Method
+     * Arguments: String userName
+     * Description: Sets the objects userName property
      */
     public void setUserName(String userName) {
         this.userName = userName;

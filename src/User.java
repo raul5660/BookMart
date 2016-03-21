@@ -1,9 +1,11 @@
 import org.bson.Document;
-
 import java.util.ArrayList;
 
-/**
- * Created by raulmartinez on 3/7/16.
+/*
+ * Name:
+ * Type:
+ * Arguments:
+ * Description:
  */
 public class User {
     private boolean isAuthenticated = false;
@@ -11,8 +13,20 @@ public class User {
     private String membershipType;                                  //Should be Student or Faculty
     private ArrayList<Document> booksCheckedOut;
 
+    /*
+     * Name:
+     * Type:
+     * Arguments:
+     * Description:
+     */
     public User() { }
 
+    /*
+     * Name:
+     * Type:
+     * Arguments:
+     * Description:
+     */
     public User(boolean isAuthenticated, String firstName, String lastName, String accountType, String membershipType, String userName, String id, ArrayList<Document> booksCheckedOut) {
         this.setAuthenticated(isAuthenticated);
         this.setFirstName(firstName);
@@ -24,70 +38,172 @@ public class User {
         this.setBooksCheckedOut(booksCheckedOut);
     }
 
+    /*
+     * Name:
+     * Type:
+     * Arguments:
+     * Description:
+     */
     public String getUserName() {
         return userName;
     }
 
+    /*
+     * Name:
+     * Type:
+     * Arguments:
+     * Description:
+     */
     public void setUserName(String userName) {
         this.userName = userName;
     }
 
+    /*
+     * Name:
+     * Type:
+     * Arguments:
+     * Description:
+     */
     public String getID() {
         return id;
     }
 
+    /*
+     * Name:
+     * Type:
+     * Arguments:
+     * Description:
+     */
     public void setID(String id) {
         this.id = id;
     }
 
+    /*
+     * Name:
+     * Type:
+     * Arguments:
+     * Description:
+     */
     public boolean isAuthenticated() {
         return isAuthenticated;
     }
 
+    /*
+     * Name:
+     * Type:
+     * Arguments:
+     * Description:
+     */
     public void setAuthenticated(boolean authenticated) {
         isAuthenticated = authenticated;
     }
 
+    /*
+     * Name:
+     * Type:
+     * Arguments:
+     * Description:
+     */
     public String getFirstName() {
         return firstName;
     }
 
+    /*
+     * Name:
+     * Type:
+     * Arguments:
+     * Description:
+     */
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
 
+    /*
+     * Name:
+     * Type:
+     * Arguments:
+     * Description:
+     */
     public String getLastName() {
         return lastName;
     }
 
+    /*
+     * Name:
+     * Type:
+     * Arguments:
+     * Description:
+     */
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
 
+    /*
+     * Name:
+     * Type:
+     * Arguments:
+     * Description:
+     */
     public String getAccountType() {
         return accountType;
     }
 
+    /*
+     * Name:
+     * Type:
+     * Arguments:
+     * Description:
+     */
     public void setAccountType(String accountType) {
         this.accountType = accountType;
     }
 
+    /*
+     * Name:
+     * Type:
+     * Arguments:
+     * Description:
+     */
     public String getMembershipType() {
         return membershipType;
     }
 
+    /*
+     * Name:
+     * Type:
+     * Arguments:
+     * Description:
+     */
     public void setMembershipType(String membershipType) {
         this.membershipType = membershipType;
     }
 
+    /*
+     * Name:
+     * Type:
+     * Arguments:
+     * Description:
+     */
     public ArrayList<Document> getBooksCheckedOut() {
         return booksCheckedOut;
     }
 
+    /*
+     * Name:
+     * Type:
+     * Arguments:
+     * Description:
+     */
     public void setBooksCheckedOut(ArrayList<Document> booksCheckedOut) {
         this.booksCheckedOut = booksCheckedOut;
     }
 
+    /*
+     * Name:
+     * Type:
+     * Arguments:
+     * Description:
+     */
     @Override
     public boolean equals(Object obj) {
         if (obj == null) {

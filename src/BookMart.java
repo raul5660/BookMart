@@ -330,14 +330,15 @@ public class BookMart {
             }
         }
 
-        System.out.println(a + ": Back");
+        System.out.println("\t" + a + ": Back");
 
         int input = reader.nextInt();
 
         if (input == a)
             console();
-        else
+        else {
             DatabaseController.returnBook(authenticatedUser, DatabaseController.documentToBooks(checkedOut.get(input)));
+        }
 
         System.out.println();
         console();

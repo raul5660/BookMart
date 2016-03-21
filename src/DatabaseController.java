@@ -271,6 +271,7 @@ public class DatabaseController {
             if (doc.getDate("dateCheckedOut").getMonth() == now.getMonth() && !doc.getBoolean("returned"))
                 rentCount++;
         }
+
         if (user.getMembershipType().equals("Student"))
         {
             if (rentCount > 0)
@@ -299,6 +300,7 @@ public class DatabaseController {
 
         //##### need to consider a update method for users and books to be used here
 
+        DatabaseController.updateBooks(user);
         return true;
     }
 
@@ -323,7 +325,7 @@ public class DatabaseController {
             return false;
         }
 
-        //Check that Book exist and is in stock
+        //Check that Book exist
         iterable =  db.getCollection("books").find(new Document("_id", new ObjectId(book.getID())));
 
         if (iterable ==  null)
@@ -334,14 +336,19 @@ public class DatabaseController {
 
         newQuantity = iterable.first().getInteger("quantity") + 1;
 
+        boolean checker = false;
         //Checks that the user does have this book checked out and has not returned it
         for (Document doc : user.getBooksCheckedOut())
         {
-            if (!((doc.get("bookID")).equals(new ObjectId(book.getID())) && !(doc.getBoolean("returned"))))
+            if ((doc.get("bookID")).equals(new ObjectId(book.getID())) && !(doc.getBoolean("returned")))
             {
-                return false;
+                System.out.println("Check");
+                checker = true;
             }
         }
+
+        if (!checker)
+            return false;
 
         //update database that user has checked out a book
         db.getCollection("users").updateOne(new Document("_id", new ObjectId(user.getID())).append("booksRentedOut.bookID",
@@ -350,8 +357,15 @@ public class DatabaseController {
         db.getCollection("books").updateOne(new Document("_id", new ObjectId(book.getID())), new Document("$set",
                 new Document("quantity", newQuantity)));
 
+        DatabaseController.updateBooks(user);
         return true;
     }
 
+    public static void updateBooks(User user)
+    {
+        Initialize();
+        FindIterable<Document> iterable = db.getCollection("users").find(new Document("userName", user.getUserName()));
+        user.setBooksCheckedOut((ArrayList<Document>) iterable.first().get("booksRentedOut"));
+    }
 
 }

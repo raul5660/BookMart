@@ -146,6 +146,12 @@ public class BookMart {
 
         authenticatedUser = DatabaseController.Login(userName,password);
 
+        if (authenticatedUser == null)
+        {
+            System.out.println("Incorrect username or password");
+            login();
+        }
+
         if (authenticatedUser.isAuthenticated()) {
             console();
         }
@@ -161,7 +167,7 @@ public class BookMart {
         if (authenticatedUser.getAccountType().equals("admin"))
         {
             System.out.println("Admin Console");
-            System.out.println("\t0) History\n\t1) Genres\n\t2) Return\n\t3) Logout");
+            System.out.println("\t0) History\n\t1) Genres\n\t2) Return\n\t3) Logout\n\t4) Exit");
             int tmp = reader.nextInt();
             if (tmp == 0) {
                 history();
@@ -172,20 +178,24 @@ public class BookMart {
             } else if (tmp == 3) {
                 authenticatedUser = new User();
                 login();
+            } else if (tmp == 4) {
+                System.exit(1);
             }
         }
         else
         {
             System.out.println("User Console");
-            System.out.println("\t0) Genres\n\t1) Return\n\t2) Logout");
+            System.out.println("\t0) Genres\n\t1) Return\n\t2) Logout\n\t3) Exit");
             int tmp = reader.nextInt();
             if (tmp == 0) {
                 genres();
             } else if (tmp == 1){
                 returnBooks();
-            } else if (tmp ==2){
+            } else if (tmp == 2){
                 authenticatedUser = new User();
                 login();
+            } else if (tmp == 3){
+                System.exit(1);
             }
         }
     }
@@ -202,13 +212,20 @@ public class BookMart {
         for (int i = 0; i < DatabaseController.genres.length; i++) {
             System.out.println(String.format("\t%d) %s", i, DatabaseController.genres[i]));
         }
-        System.out.println(String.format("\t%d) %s", DatabaseController.genres.length, "Logout"));
+        System.out.println(String.format("\t%d) back\n\t%d) %s", DatabaseController.genres.length, DatabaseController.genres.length+1, "Logout"));
         System.out.print("Input: ");
         int genre = reader.nextInt();
-        if (genre == DatabaseController.genres.length) {
+        if (genre == DatabaseController.genres.length+1)
+        {
             authenticatedUser = new User();
             login();
-        } else {
+        }
+        else if (genre == DatabaseController.genres.length)
+        {
+            console();
+        }
+        else
+        {
             books = DatabaseController.getBooksByGenre(DatabaseController.genres[genre]);
             DisplayBooks();
         }
@@ -244,7 +261,8 @@ public class BookMart {
                     DatabaseController.checkoutBook(authenticatedUser,books.get(input));
                     break;
             }
-            genres();
+            System.out.println();
+            console();
         }
     }
 
@@ -320,6 +338,9 @@ public class BookMart {
             console();
         else
             DatabaseController.returnBook(authenticatedUser, DatabaseController.documentToBooks(checkedOut.get(input)));
+
+        System.out.println();
+        console();
 
     }
 }

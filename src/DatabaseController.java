@@ -126,7 +126,7 @@ public class DatabaseController {
      * Arguments:
      * Description:
      */
-    public static boolean createUser(User user, String password) {
+    public static boolean createUser(User user, String password, String paypalUserName) {
         Initialize();
         Document tmpUser = new Document();
         tmpUser.append("firstName", user.getFirstName());
@@ -136,6 +136,7 @@ public class DatabaseController {
         tmpUser.append("accountType", user.getAccountType());
         tmpUser.append("membershipType", user.getMembershipType());
         tmpUser.append("booksRentedOut", asList());
+        tmpUser.append("paypalUserName", paypalUserName);
         db.getCollection("users").insertOne(tmpUser);
 
         User tmpUser2 = Login(user.getUserName(), password);

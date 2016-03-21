@@ -195,7 +195,11 @@ public class DatabaseController {
     public static boolean checkoutBook(User user, Books book)
     {
         Date date = new Date();               //Start at current date
-        int newQuantity;                            //the amount of book left after operation
+        int newQuantity;                      //the amount of book left after operation
+        int rentCount = 0;                        //the number of books already rented by the user tht month
+        ArrayList<Document> checkedOut = user.getBooksCheckedOut();
+        Date now = new Date();
+
 
         Initialize();
 
@@ -232,6 +236,30 @@ public class DatabaseController {
                 return false;
             }
         }
+
+        //Check that the user has no exceeded their renting amount for the month
+        for(Document doc : checkedOut)
+        {
+            if (doc.getDate("dateCheckedOut").getMonth() == now.getMonth() && !doc.getBoolean("returned"))
+                rentCount++;
+        }
+        if (user.getMembershipType().equals("Student"))
+        {
+            if (rentCount > 0)
+            {
+                System.out.println("You can only check out 1 book a month");
+                return false;
+            }
+        }
+        else
+        {
+            if (rentCount > 3)
+            {
+                System.out.println("You can only check out 4 books a month");
+                return false;
+            }
+        }
+
 
         //update database that user has checked out a book
         db.getCollection("users").updateOne(new Document("_id", new ObjectId(user.getID())),

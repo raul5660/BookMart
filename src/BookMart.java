@@ -4,8 +4,11 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Scanner;
 
-/**
- * Created by raulmartinez on 2/29/16.
+/*
+ * Name:
+ * Type:
+ * Arguments:
+ * Description:
  */
 public class BookMart {
 
@@ -14,10 +17,22 @@ public class BookMart {
     private static ArrayList<Books> books;
     private static long DAY_IN_MS = 1000 * 60 * 60 * 24; //number of miliseconds in a day
 
+    /*
+     * Name:
+     * Type:
+     * Arguments:
+     * Description:
+     */
     public static void main(String[] args){
         introduction();
     }
 
+    /*
+     * Name:
+     * Type:
+     * Arguments:
+     * Description:
+     */
     private static void introduction()
     {
         boolean go = true;
@@ -49,6 +64,12 @@ public class BookMart {
 
     }
 
+    /*
+     * Name:
+     * Type:
+     * Arguments:
+     * Description:
+     */
     private static void accountCreation()
     {
         String firstName;
@@ -109,6 +130,12 @@ public class BookMart {
         login();
     }
 
+    /*
+     * Name:
+     * Type:
+     * Arguments:
+     * Description:
+     */
     private static void login() {
         reader = new Scanner(System.in);
         System.out.println("Login");
@@ -124,6 +151,12 @@ public class BookMart {
         }
     }
 
+    /*
+     * Name:
+     * Type:
+     * Arguments:
+     * Description:
+     */
     private static void console() {
         if (authenticatedUser.getAccountType().equals("admin"))
         {
@@ -157,6 +190,12 @@ public class BookMart {
         }
     }
 
+    /*
+     * Name:
+     * Type:
+     * Arguments:
+     * Description:
+     */
     private static void genres() {
         reader = new Scanner(System.in);
         System.out.println("Genres");
@@ -175,17 +214,25 @@ public class BookMart {
         }
     }
 
+    /*
+     * Name:
+     * Type:
+     * Arguments:
+     * Description:
+     */
     private static void DisplayBooks() {
+        reader = new Scanner(System.in);
         System.out.println(books.get(0).getGenre());
         for(int i = 0; i < books.size(); i++) {
             System.out.println(String.format("\t%d) %s", i,books.get(i).getName()));
         }
-        System.out.println(String.format("\t%d) %s", books.size(), "Back"));
+        System.out.print(String.format("\t%d) %s", books.size(), "Back"));
         System.out.print("Input: ");
         int input = reader.nextInt();
         if (input == books.size()) {
             genres();
         } else {
+            reader = new Scanner(System.in);
             System.out.println(String.format("Are you sure you want to checkout %s (Y/n):",books.get(input).getName()));
             String tmp = reader.next();
             switch (tmp.toLowerCase()) {
@@ -197,9 +244,16 @@ public class BookMart {
                     DatabaseController.checkoutBook(authenticatedUser,books.get(input));
                     break;
             }
+            genres();
         }
     }
 
+    /*
+     * Name:
+     * Type:
+     * Arguments:
+     * Description:
+     */
     private static void history()
     {
         System.out.println("Enter the username of the user to see his/her purchase history");
@@ -224,7 +278,12 @@ public class BookMart {
         console();
     }
 
-
+    /*
+     * Name:
+     * Type:
+     * Arguments:
+     * Description:
+     */
     private static void returnBooks()
     {
         ArrayList<Document> checkedOut = authenticatedUser.getBooksCheckedOut();

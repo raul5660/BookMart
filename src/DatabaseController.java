@@ -4,27 +4,37 @@ import com.mongodb.client.MongoDatabase;
 import org.bson.Document;
 import com.mongodb.client.FindIterable;
 import org.bson.types.ObjectId;
-
 import java.util.ArrayList;
 import java.util.Date;
-
 import static java.util.Arrays.asList;
 
-/**
- * Created by raulmartinez on 3/3/16.
+/*
+ * Name:
+ * Type:
+ * Arguments:
+ * Description:
  */
 public class DatabaseController {
     private static MongoDatabase db;
     public static String[] genres = {"Art", "Business & Economics", "Computer Science", "Design", "Education", "Law", "Mathematics", "Music", "Philosophy and Psychology"};
 
-    /**
-     * Initializes database client connection
+    /*
+     * Name:
+     * Type:
+     * Arguments:
+     * Description:
      */
     private static void Initialize() {
         MongoClient mongoClient = new MongoClient("127.0.0.1", 27017);
         db = mongoClient.getDatabase("BookMart");
     }
 
+    /*
+     * Name:
+     * Type:
+     * Arguments:
+     * Description:
+     */
     public static ArrayList<Books> getBooksByGenre(String genre) {
         Initialize();
         final ArrayList<Books> Books = new ArrayList<Books>();
@@ -58,6 +68,12 @@ public class DatabaseController {
         return Books;
     }
 
+    /*
+     * Name:
+     * Type:
+     * Arguments:
+     * Description:
+     */
     public static User Login(String username, final String password) {
         Initialize();
         final User[] user = new User[1];
@@ -87,6 +103,12 @@ public class DatabaseController {
         return user[0];
     }
 
+    /*
+     * Name:
+     * Type:
+     * Arguments:
+     * Description:
+     */
     public static ArrayList<Books> getBooks(){
         ArrayList<Books> Books = new ArrayList<Books>();
         for (int i = 0; i < genres.length; i++ ){
@@ -98,6 +120,12 @@ public class DatabaseController {
         return Books;
     }
 
+    /*
+     * Name:
+     * Type:
+     * Arguments:
+     * Description:
+     */
     public static boolean createUser(User user, String password) {
         Initialize();
         Document tmpUser = new Document();

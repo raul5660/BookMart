@@ -4,9 +4,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Scanner;
 
-/**
- * Created by raulmartinez on 2/29/16.
- */
 public class BookMart {
 
     private static Scanner reader = new Scanner(System.in);
@@ -176,16 +173,18 @@ public class BookMart {
     }
 
     private static void DisplayBooks() {
+        reader = new Scanner(System.in);
         System.out.println(books.get(0).getGenre());
         for(int i = 0; i < books.size(); i++) {
             System.out.println(String.format("\t%d) %s", i,books.get(i).getName()));
         }
-        System.out.println(String.format("\t%d) %s", books.size(), "Back"));
+        System.out.print(String.format("\t%d) %s", books.size(), "Back"));
         System.out.print("Input: ");
         int input = reader.nextInt();
         if (input == books.size()) {
             genres();
         } else {
+            reader = new Scanner(System.in);
             System.out.println(String.format("Are you sure you want to checkout %s (Y/n):",books.get(input).getName()));
             String tmp = reader.next();
             switch (tmp.toLowerCase()) {
@@ -197,6 +196,7 @@ public class BookMart {
                     DatabaseController.checkoutBook(authenticatedUser,books.get(input));
                     break;
             }
+            genres();
         }
     }
 

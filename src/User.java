@@ -60,50 +60,50 @@ public class User {
     }
 
     /*
-     * Name:
-     * Type:
-     * Arguments:
-     * Description:
+     * Name: getID
+     * Type: Method
+     * Arguments: NA
+     * Description: returns the objects id property
      */
     public String getID() {
         return id;
     }
 
     /*
-     * Name:
-     * Type:
-     * Arguments:
-     * Description:
+     * Name: setID
+     * Type: Method
+     * Arguments: String id
+     * Description: Sets the objects id property
      */
     public void setID(String id) {
         this.id = id;
     }
 
     /*
-     * Name:
-     * Type:
-     * Arguments:
-     * Description:
+     * Name: isAuthenticated
+     * Type: Method
+     * Arguments: NA
+     * Description: returns the objects isAuthenticated property
      */
     public boolean isAuthenticated() {
         return isAuthenticated;
     }
 
     /*
-     * Name:
-     * Type:
-     * Arguments:
-     * Description:
+     * Name: setAuthenticated
+     * Type: Method
+     * Arguments: boolean authenticated
+     * Description: Sets the objects isAuthenticated property
      */
     public void setAuthenticated(boolean authenticated) {
         isAuthenticated = authenticated;
     }
 
     /*
-     * Name:
-     * Type:
-     * Arguments:
-     * Description:
+     * Name: getFirstName
+     * Type: Method
+     * Arguments: NA
+     * Description: returns the objects firstName property
      */
     public String getFirstName() {
         return firstName;
@@ -200,10 +200,10 @@ public class User {
     }
 
     /*
-     * Name:
-     * Type:
-     * Arguments:
-     * Description:
+     * Name: equals
+     * Type: Overrided Method
+     * Arguments: Object obj
+     * Description: This method returns a boolean value if specific values are identical
      */
     @Override
     public boolean equals(Object obj) {

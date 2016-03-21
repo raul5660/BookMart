@@ -5,10 +5,10 @@ import java.util.Date;
 import java.util.Scanner;
 
 /*
- * Name:
- * Type:
- * Arguments:
- * Description:
+ * Name: BookMart
+ * Type: Class
+ * Arguments: NA
+ * Description: This class will be used to run the entire application
  */
 public class BookMart {
 
@@ -18,20 +18,20 @@ public class BookMart {
     private static long DAY_IN_MS = 1000 * 60 * 60 * 24; //number of miliseconds in a day
 
     /*
-     * Name:
-     * Type:
-     * Arguments:
-     * Description:
+     * Name: main
+     * Type: Method
+     * Arguments: String[] args
+     * Description: This methods is used to start the application
      */
     public static void main(String[] args){
         introduction();
     }
 
     /*
-     * Name:
-     * Type:
-     * Arguments:
-     * Description:
+     * Name: introduction
+     * Type: Method
+     * Arguments: NA
+     * Description: This method initiates the prompting process
      */
     private static void introduction()
     {
@@ -65,10 +65,10 @@ public class BookMart {
     }
 
     /*
-     * Name:
-     * Type:
-     * Arguments:
-     * Description:
+     * Name: accountCreation
+     * Type: Method
+     * Arguments: NA
+     * Description: this method prompts for account creation
      */
     private static void accountCreation()
     {
@@ -138,10 +138,10 @@ public class BookMart {
     }
 
     /*
-     * Name:
-     * Type:
-     * Arguments:
-     * Description:
+     * Name: login
+     * Type: Method
+     * Arguments: NA
+     * Description: this method prompts for loggin in
      */
     private static void login() {
         reader = new Scanner(System.in);
@@ -166,9 +166,9 @@ public class BookMart {
 
     /*
      * Name:
-     * Type:
-     * Arguments:
-     * Description:
+     * Type: Method
+     * Arguments: NA
+     * Description: this method prompts for admin settings
      */
     private static void console() {
         if (authenticatedUser.getAccountType().equals("admin"))
@@ -208,10 +208,10 @@ public class BookMart {
     }
 
     /*
-     * Name:
-     * Type:
-     * Arguments:
-     * Description:
+     * Name: genres
+     * Type: Method
+     * Arguments: NA
+     * Description: this method prompts for genre selection
      */
     private static void genres() {
         reader = new Scanner(System.in);
@@ -239,10 +239,10 @@ public class BookMart {
     }
 
     /*
-     * Name:
-     * Type:
-     * Arguments:
-     * Description:
+     * Name: DisplayBooks
+     * Type: Method
+     * Arguments: NA
+     * Description: this method prompts for book display of given genre
      */
     private static void DisplayBooks() {
         reader = new Scanner(System.in);
@@ -274,10 +274,10 @@ public class BookMart {
     }
 
     /*
-     * Name:
-     * Type:
-     * Arguments:
-     * Description:
+     * Name: history
+     * Type: Method
+     * Arguments: NA
+     * Description: this method prompts for history of checked out books
      */
     private static void history()
     {
@@ -304,10 +304,10 @@ public class BookMart {
     }
 
     /*
-     * Name:
-     * Type:
-     * Arguments:
-     * Description:
+     * Name: returnBooks
+     * Type: Method
+     * Arguments: NA
+     * Description: this method prompts for book returns
      */
     private static void returnBooks()
     {
